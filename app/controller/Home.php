@@ -1,8 +1,12 @@
 <?php
 
 
-class Home {
+class Home extends Controller{
+
+    public function __construct(){
+
+    }
     public function index() {
-        echo "Home index method";
+        $this-> view('pages/login');
     }
 }
