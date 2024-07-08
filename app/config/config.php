@@ -11,4 +11,4 @@ define('DB_PASSWORD', 'lagrande');
 
 define('URL_APP', dirname(dirname(__FILE__)));
 define('URL_PROYECT', 'http://localhost/redSocialWebIII');
-define('NAME_PROYECT', 'redSocialWebIII');
+define('NAME_PROYECT', 'FACEBOOK_2.0');

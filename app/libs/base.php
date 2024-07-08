@@ -69,13 +69,13 @@ class Base
     public function register()
     {
         $this->execute();
-        return $this->stmt->fetchAll(PDO::FETCH_OBJ);
+        return $this->stmt->fetch(PDO::FETCH_OBJ);
     }
 
     public function registers()
     {
         $this->execute();
-        return $this->stmt->fetch(PDO::FETCH_OBJ);
+        return $this->stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
     public function rowCount()
