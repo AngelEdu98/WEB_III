@@ -15,7 +15,15 @@ include_once URL_APP . '/views/custom/navbar.php';
                     <input type="password" name="contrasena" placeholder="Contraseña" required>
                     <button class="btn-purple btn-block">Ingresar</button>
                 </form>
+        <!-- Alerta de usuario/contraseña incorrectos-->
+                <?php if (isset($_SESSION['errorLogin'])): ?>
+                <div class="alert alert-danger alert-dismissible fade show mt-2 mb-2" role="alert">
+                    <?php echo  $_SESSION['errorLogin'] ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <?php unset($_SESSION['errorLogin']); endif ?>
 
+        <!-- Logeo completo-->
                 <?php if (isset($_SESSION['loginComplete'])): ?>
                 <div class="alert alert-success alert-dismissible fade show mt-2 mb-2" role="alert">
                     <?php echo  $_SESSION['loginComplete'] ?>

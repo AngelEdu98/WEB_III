@@ -9,38 +9,33 @@ class Home extends Controller
         //$this->fd = $this->model('ejemplo');
         $this->usuario = $this->model('usuario');
     }
-    public function index()
-    {
-        /*$privilegios=$this->fd->get_Priv();
-
-        $datos =[
-            'privilegios'=> $privilegios
-        ];
-        $this->view('pages/ver', $datos);*/
-
-        //$this->view('pages/login');
+    public function index() {
+        /*if(isset($_SESSION['logueado'])){
+            $this->view('/pages/home');
+        }else{
+            redirection('/home/login');
+        }*/
     }
 
     public function login()
     {
-        if ($_SERVER['REQUEST_METHOD']=='POST'){
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $datosSesion = [
                 'usuario' => trim($_POST['usuario']),
-                'contrasena' =>trim($_POST['contrasena'])
+                'contrasena' => trim($_POST['contrasena'])
             ];
 
-            $datosLogin= $this->usuario->getUsuario($datosSesion);
+            $datosLogin = $this->usuario->getUsuario($datosSesion);
 
-            if(password_verify($datosSesion['contrasena'],$datosLogin->contrasena)){
-               
-                
-            } else{
-            }  
-                     
-             
+            if (password_verify($datosSesion['contrasena'], $datosLogin->contrasena)) {
+                //$_SESSION['logeado'] = $datosLogin->usuario;
+                redirection('/pages/principal');
+            } else {
+                $_SESSION['errorLogin'] = 'El usuario o la contraseña son incorrectos';
+                redirection('/home');
+            }
 
-               
-        }else{
+        } else {
             $this->view('pages/login');
         }
     }
@@ -52,16 +47,16 @@ class Home extends Controller
                 'privilegio' => '3',
                 'email' => trim($_POST['email']),
                 'usuario' => trim($_POST['usuario']),
-                'contrasena' =>password_hash(trim($_POST['contrasena']), PASSWORD_DEFAULT)
+                'contrasena' => password_hash(trim($_POST['contrasena']), PASSWORD_DEFAULT)
             ];
 
             if ($this->usuario->verificarUsuario($datosRegistro)) {
                 if ($this->usuario->register($datosRegistro)) {
-                    $_SESSION['usuario'] = $datosRegistro['usuario'];
+                    //$_SESSION['usuario'] = $datosRegistro['usuario'];
                     $_SESSION['loginComplete'] = 'Tu registro se a completado sastifactoriamente, ahora puedes iniciar sesion';
-                    redirection('/home/login');
+                    redirection('/home');
                 } else {
-                  // $this->view('/pages/login');
+                    // $this->view('/pages/login');
                 }
             } else {
                 $_SESSION['usuarioError'] = 'El usuario no esta disponible, intente con otro usuario';
@@ -70,5 +65,15 @@ class Home extends Controller
         } else {
             $this->view('pages/registro');
         }
+    }
+
+    public function logout(){
+        session_start();
+
+        $_SESSION = [];
+
+        session_destroy();
+
+        redirection('/home');
     }
 }
