@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 class Base
 {
 
@@ -80,7 +82,6 @@ class Base
 
     public function rowCount()
     {
-        $this->execute();
         return $this->stmt->rowCount();
     }
 }

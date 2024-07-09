@@ -4,7 +4,7 @@
 require_once 'config/config.php';
 
 //llamando a la url helperl
-require_once 'helpers/url_helper.php';
+require_once 'helper/url_helper.php';
 
 //llamando a libs
 spl_autoload_register(function($_files){
